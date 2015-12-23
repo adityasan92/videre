@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {initEnvironment} from '../actions/environment';
-
+import NavContainer from '../containers/NavContainer';
 class App extends Component {
 
   componentDidMount () {
@@ -13,13 +13,24 @@ class App extends Component {
 
   render(){
     console.log(this.props);
-    return (
-            <div>
-                <h1>Hello World!</h1>
-            </div>
-        );
+    const {height, isMobile, width} = this.props;
+          if (isMobile) {
+              return (
+                  <div className='mobile' style={{height: `${height}px`, width: `${width}px`}}>
+
+                  </div>
+              );
+          }
+
+          return (
+              <div>
+              <NavContainer />
+                  <h1>Hello World!</h1>
+              </div>
+          );
+      }
   }
-}
+
 
 App.propTypes = {
     dispatch: PropTypes.func.isRequired,

@@ -31,7 +31,7 @@ class App extends Component {
               <div>
                 <NavContainer />
                //<VidereContainer />
-                <VideresContainer />
+                //<VideresContainer />
                 <h1>Hello World!</h1>
               </div>
           );

@@ -11,9 +11,13 @@ class VideresContainer extends Component{
 function mapStateToProps(state){
     const {player,playerlists} = state;
 
-    return {
+    /*return {
       player,
       playerlists
+    }*/
+
+    return {
+
     }
 
 }

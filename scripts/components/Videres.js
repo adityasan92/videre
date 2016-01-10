@@ -8,4 +8,20 @@ class Videres extends Component{
 
     }
 
+    render(){
+      const { height, playlist, playlists, songs, time, users} = this.props;
+      return (
+            <div className={'songs' + (sticky ? ' sticky' : '')}>
+
+                <div className='container'>
+                    <SongCards
+                        dispatch={dispatch}
+                        height={height}
+                        songs={songs}
+                        users={users} />
+                </div>
+            </div>
+        );
+    }
+
 }

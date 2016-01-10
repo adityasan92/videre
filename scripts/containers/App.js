@@ -2,6 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {initEnvironment} from '../actions/environment';
 import NavContainer from '../containers/NavContainer';
+//import VidereContainer from '../containers/VidereContainer';
+import VideresContainer from '../containers/VideresContainer';
 class App extends Component {
 
   componentDidMount () {
@@ -24,8 +26,10 @@ class App extends Component {
 
           return (
               <div>
-              <NavContainer />
-                  <h1>Hello World!</h1>
+                <NavContainer />
+               //<VidereContainer />
+                <VideresContainer />
+                <h1>Hello World!</h1>
               </div>
           );
       }

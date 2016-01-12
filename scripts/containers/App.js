@@ -1,10 +1,10 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {initEnvironment} from '../actions/environment';
-import {initNavigator} from '../actions/navigator';
+//import {initNavigator} from '../actions/navigator';
 import NavContainer from '../containers/NavContainer';
 //import VidereContainer from '../containers/VidereContainer';
-import VideresContainer from '../containers/VideresContainer';
+//import VideresContainer from '../containers/VideresContainer';
 
 
 class App extends Component {
@@ -30,8 +30,7 @@ class App extends Component {
           return (
               <div>
                 <NavContainer />
-               //<VidereContainer />
-                //<VideresContainer />
+               
                 <h1>Hello World!</h1>
               </div>
           );
@@ -41,7 +40,7 @@ class App extends Component {
 
 App.propTypes = {
     dispatch: PropTypes.func.isRequired,
-    path: PropTypes.array.isRequired
+    //path: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state) {

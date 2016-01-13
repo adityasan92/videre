@@ -5,7 +5,7 @@ import {initEnvironment} from '../actions/environment';
 import NavContainer from '../containers/NavContainer';
 //import VidereContainer from '../containers/VidereContainer';
 //import VideresContainer from '../containers/VideresContainer';
-
+import VideosContainer from '../containers/VideosContainer';
 
 class App extends Component {
 
@@ -30,7 +30,7 @@ class App extends Component {
           return (
               <div>
                 <NavContainer />
-               
+                <VideosContainer />
                 <h1>Hello World!</h1>
               </div>
           );

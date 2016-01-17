@@ -4,7 +4,7 @@ import Song from '../components/Videre';
 
 class VidereContainer extends Component{
     render() {
-      return <Videre {...this.props}/>
+        return <TextBox {...this.props}/>
     }
 }
 

@@ -3,6 +3,11 @@ import {connect} from 'react-redux';
 
 class TextBox extends Component{
 
+      constructor(props) {
+        super(props);
+         this.document.getElementByClass("this.textArea").addEventListener("drag", drag);
+      }
+
       drag(e) {
           console.log("I am in");
           console.log(e);
@@ -10,8 +15,8 @@ class TextBox extends Component{
 
       render(){
         return(
-          <div >
-            <textArea draggable="true" ondragstart="drag(event)"></textArea>
+          <div>
+            <textArea className="textArea"></textArea>
           </div>
         );
       };

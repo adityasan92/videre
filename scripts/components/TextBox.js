@@ -7,21 +7,22 @@ class TextBox extends Component{
         super(props);
          //this.document.getElementByClass("this.textArea").addEventListener("drag", drag);
          console.log(props)
-
+         this.drag = this.drag.bind(this);
       }
 
       drag(ev) {
           //console.log("I am in");
-          console.log(ev);
+          console.log(ev.dataTransfer);
           ev.dataTransfer.setData("text", ev.target.id);
           console.log(this.props);
-          
+          //console.log(ev.target.id);
+          this.props.onDragSomething(ev);
       };
 
       render(){
         return(
           <div>
-            <textArea draggable={true} className="textArea" onDragStart={this.drag}></textArea>
+            <textArea draggable={true} className="textArea" ></textArea>
           </div>
         );
       };

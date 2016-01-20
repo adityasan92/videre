@@ -8,7 +8,6 @@ import App from './containers/App';
 import configureStore from './store/configureStore';
 //alert('Hello World');
 require('../styles/main.scss');
-//import 'jquery';
 require('bootstrap');
 const store = configureStore();
 

@@ -13,8 +13,9 @@ class TextBox extends Component{
       drag(ev) {
           //console.log("I am in");
           console.log(ev.dataTransfer);
-          ev.dataTransfer.setData("text", ev.target.id);
-          console.log(this.props);
+          //ev.dataTransfer.setData("text", ev.target.id);
+          // /console.log(this.props);
+          console.log(ev.target.id);
           //console.log(ev.target.id);
           this.props.onDragSomething(ev);
       };
@@ -22,7 +23,7 @@ class TextBox extends Component{
       render(){
         return(
           <div>
-            <textArea draggable={true} className="textArea" ></textArea>
+            <textarea draggable="true" className="textArea"  onDragStart={this.drag} >okosd</textarea>
           </div>
         );
       };

@@ -1,5 +1,20 @@
 import React, {Component, PropTypes} from 'react';
+import { ItemTypes } from '../constants/draggableTypes.js';
 import {connect} from 'react-redux';
+import { DragSource } from 'react-dnd';
+
+const textBoxSource = {
+  beginDrag(props) {
+    return {};
+  }
+};
+
+function collect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  }
+}
 
 class TextBox extends Component{
 
@@ -21,13 +36,18 @@ class TextBox extends Component{
       };
 
       render(){
-        return(
+        const { connectDragSource, isDragging } = this.props;
+        console.log(this.props);
+        return connectDragSource(
+          // <div>
+          //   <textarea draggable="true" className="textArea"  onDragStart={this.drag} >okosd</textarea>
+          // </div>
           <div>
-            <textarea draggable="true" className="textArea"  onDragStart={this.drag} >okosd</textarea>
+            <textarea ></textarea>
           </div>
         );
       };
 
 }
 
-export default connect()(TextBox);
+export default DragSource(ItemTypes.TEXTBOX, textBoxSource, collect)(TextBox);

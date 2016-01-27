@@ -1,9 +1,24 @@
 import React, {Component, PropTypes} from 'react';
 //var Draggabilly = require('draggabilly');
 import TextBox from '../components/TextBox.js';
-var $draggable = $('.draggable').draggabilly({
-  // options...
-})
+var DragDropContext = require('react-dnd').DragDropContext;
+var HTML5Backend = require('react-dnd-html5-backend');
+
+import { ItemTypes } from '../constants/draggableTypes.js';
+import { DropTarget } from 'react-dnd';
+
+const squareTarget = {
+  drop(props) {
+    moveKnight(props.x, props.y);
+  }
+};
+
+function collect(connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver()
+  };
+}
 
 class VideosContainer extends Component {
 
@@ -33,8 +48,8 @@ class VideosContainer extends Component {
     render(){
       const {dispatch} = this.props;
       return (
-        <div className="row" onDrop={this.drop} onDragOver={this.allowDrop}>
-            <TextBox {...this.props} onDragSomething={this.drag}/>
+        <div className="row" >
+            <TextBox {...this.props} />
         </div>
         // <div>
         //       <textArea  className="textArea" ></textArea>
@@ -43,4 +58,4 @@ class VideosContainer extends Component {
     }
 }
 
-export default VideosContainer;
+export default DragDropContext(HTML5Backend)(VideosContainer);

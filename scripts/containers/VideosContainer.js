@@ -11,6 +11,7 @@ import flow from 'lodash/function/flow';
 const squareTarget = {
   drop(props) {
   //  moveKnight(props.x, props.y);
+  console.log(props);
   }
 };
 
@@ -34,6 +35,5 @@ class VideosContainer extends Component {
 }
 
 export default  flow(
-  DragDropContext(HTML5Backend),
   DropTarget(ItemTypes.TEXTBOX, squareTarget, collect)
 )(VideosContainer);

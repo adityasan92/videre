@@ -6,6 +6,9 @@ import NavContainer from '../containers/NavContainer';
 //import VidereContainer from '../containers/VidereContainer';
 //import VideresContainer from '../containers/VideresContainer';
 import VideosContainer from '../containers/VideosContainer';
+var DragDropContext = require('react-dnd').DragDropContext;
+var HTML5Backend = require('react-dnd-html5-backend');
+import flow from 'lodash/function/flow';
 
 class App extends Component {
 
@@ -53,4 +56,7 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(App);
+export default  flow(
+  DragDropContext(HTML5Backend),
+  connect(mapStateToProps)
+)(App);

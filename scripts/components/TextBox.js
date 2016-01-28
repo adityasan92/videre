@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react';
-import { ItemTypes } from '../constants/draggableTypes.js';
 import {connect} from 'react-redux';
+import { ItemTypes } from '../constants/draggableTypes.js';
 import { DragSource } from 'react-dnd';
+import flow from 'lodash/function/flow';
 
 const textBoxSource = {
   beginDrag(props) {
@@ -20,28 +21,14 @@ class TextBox extends Component{
 
       constructor(props) {
         super(props);
-         //this.document.getElementByClass("this.textArea").addEventListener("drag", drag);
          console.log(props)
-         this.drag = this.drag.bind(this);
       }
 
-      drag(ev) {
-          //console.log("I am in");
-          console.log(ev.dataTransfer);
-          //ev.dataTransfer.setData("text", ev.target.id);
-          // /console.log(this.props);
-          console.log(ev.target.id);
-          //console.log(ev.target.id);
-          this.props.onDragSomething(ev);
-      };
 
       render(){
         const { connectDragSource, isDragging } = this.props;
         console.log(this.props);
         return connectDragSource(
-          // <div>
-          //   <textarea draggable="true" className="textArea"  onDragStart={this.drag} >okosd</textarea>
-          // </div>
           <div>
             <textarea ></textarea>
           </div>
@@ -50,4 +37,19 @@ class TextBox extends Component{
 
 }
 
-export default DragSource(ItemTypes.TEXTBOX, textBoxSource, collect)(TextBox);
+function mapStateToProps(state) {
+    const {environment, navigator} = state;
+    console.log(environment);
+    return {
+        height: environment.height,
+        isMobile: environment.isMobile,
+        //path: navigator.route.path,
+        width: environment.width
+    };
+}
+
+//export default  DragSource(ItemTypes.TEXTBOX, textBoxSource, collect)(TextBox);
+export default  flow(
+  DragSource(ItemTypes.TEXTBOX, textBoxSource, collect),
+  connect(mapStateToProps)
+)(TextBox);

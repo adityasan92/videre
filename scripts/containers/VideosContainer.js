@@ -9,11 +9,24 @@ import { ItemTypes } from '../constants/draggableTypes.js';
 import { DropTarget } from 'react-dnd';
 import flow from 'lodash/function/flow';
 
+const styles = {
+  width: 300,
+  height: 400,
+  position: 'fixed'
+};
+
 const target = {
+  canDrop: function (props, monitor) {
+    // You can disallow drop based on props or item
+    //console.log("asdasdasdsa");
+    var item = monitor.getItem();
+    return true;
+  },
+
   drop(props,monitor, component) {
     const item = monitor.getItem();
     const delta = monitor.getDifferenceFromInitialOffset();
-    console.log(item);
+    console.log(monitor.getItemType());
     const left = Math.round(item.left + delta.x);
     const top = Math.round(item.top + delta.y);
     component.moveBox(item.id, left, top);
@@ -24,6 +37,9 @@ const target = {
 
 function collect(connect, monitor) {
   return {
+    isOver: monitor.isOver(),
+    isOverCurrent: monitor.isOver({ shallow: true }),
+    canDrop: monitor.canDrop(),
     connectDropTarget: connect.dropTarget()
   };
 }
@@ -34,6 +50,7 @@ class VideosContainer extends Component {
       this.state = {
         textBox: {
           'a': { top: 0, left: 0},
+
         }
       };
     }
@@ -53,18 +70,15 @@ class VideosContainer extends Component {
 
     render(){
       const {connectDropTarget} = this.props;
-      var key = 'a';
-      var y = 0;
-      var x = 0;
       const {textBox} = this.state;
 
       return connectDropTarget(
         // <div className="row" >
         //     <TextBox {...this.props} id={key} left={x} top={y} />
         // </div>
-        <div className="row" >
+        <div style={styles}>
           {Object.keys(textBox).map(key => {
-           const { left, top, title } = textBox[key];
+           const { left, top } = textBox[key];
            return (
              <TextBox
                   id={key}

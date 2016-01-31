@@ -8,6 +8,18 @@ const textBoxSource = {
   beginDrag(props) {
     const { id, left, top } = props;
     return { id, left, top };
+  },
+  endDrag(props, monitor, component) {
+    if (!monitor.didDrop()) {
+      // You can check whether the drop was successful
+      // or if the drag ended but nobody handled the drop
+      console.log("Monitor didnt drop");
+      return;
+    }
+
+    //const item = monitor.getItem();
+    const dropResult = monitor.getDropResult();
+    console.log(dropResult);
   }
 };
 
@@ -28,7 +40,7 @@ class TextBox extends Component{
 
       render(){
         const { connectDragSource, isDragging, left, top } = this.props;
-        console.log(this.props);
+        //console.log(this.props);
         return connectDragSource(
           <div style={{ left, top }}>
             <textarea ></textarea>

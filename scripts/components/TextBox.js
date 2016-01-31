@@ -6,7 +6,8 @@ import flow from 'lodash/function/flow';
 
 const textBoxSource = {
   beginDrag(props) {
-    return {};
+    const { id, left, top } = props;
+    return { id, left, top };
   }
 };
 
@@ -26,10 +27,10 @@ class TextBox extends Component{
 
 
       render(){
-        const { connectDragSource, isDragging } = this.props;
+        const { connectDragSource, isDragging, left, top } = this.props;
         console.log(this.props);
         return connectDragSource(
-          <div>
+          <div style={{ left, top }}>
             <textarea ></textarea>
           </div>
         );

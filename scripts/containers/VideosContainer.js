@@ -31,7 +31,7 @@ const target = {
     const top = Math.round(item.top + delta.y);
     component.moveBox(item.id, left, top);
     console.log(component);
-    //return {};
+    return {};
   }
 };
 

@@ -36,6 +36,7 @@ class App extends Component {
               //   <VideosContainer />
               // </div>
               <div>
+               <NavContainer />
                   <Container />
               </div>
           );

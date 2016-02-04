@@ -1,3 +1,4 @@
 export const ItemTypes = {
-    TEXTBOX: 'TextBox'
+    TEXTBOX: 'TextBox',
+    BOX: 'box'
 };

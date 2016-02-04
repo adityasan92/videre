@@ -8,6 +8,7 @@ var HTML5Backend = require('react-dnd-html5-backend');
 import { ItemTypes } from '../constants/draggableTypes.js';
 import { DropTarget } from 'react-dnd';
 import flow from 'lodash/function/flow';
+import Box from '../testtry2/Box';
 
 const styles = {
   width: 300,

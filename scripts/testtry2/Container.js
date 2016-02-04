@@ -5,17 +5,24 @@ import Box from './Box';
 import { DropTarget, DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import flow from 'lodash/function/flow';
+import TextBox from '../components/TextBox'
+// const styles = {
+//   width: 300,
+//   height: 300,
+//   border: '1px solid black',
+//   position: 'relative'
+// };
 
 const styles = {
-  width: 300,
-  height: 300,
-  border: '1px solid black',
-  position: 'relative'
+  width: 600,
+  height: 400,
+  position: 'fixed'
 };
 
 const boxTarget = {
   drop(props, monitor, component) {
     const item = monitor.getItem();
+    console.log(item);
     const delta = monitor.getDifferenceFromInitialOffset();
     const left = Math.round(item.left + delta.x);
     const top = Math.round(item.top + delta.y);
@@ -28,16 +35,19 @@ class Container extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      boxes: {
-        'a': { top: 20, left: 80, title: 'Drag me around' },
-        'b': { top: 180, left: 20, title: 'Drag me too' }
+      textbox: {
+        'a': { top: 20, left: 80},
+        'b': { top: 180, left: 20}
       }
     };
   }
 
   moveBox(id, left, top) {
+    console.log(id);
+    console.log(left);
+    console.log(top);
     this.setState(update(this.state, {
-      boxes: {
+      textbox: {
         [id]: {
           $merge: {
             left: left,
@@ -50,20 +60,17 @@ class Container extends Component {
 
   render() {
     const { hideSourceOnDrag, connectDropTarget } = this.props;
-    const { boxes} = this.state;
+    const { textbox} = this.state;
 
     return connectDropTarget(
       <div style={styles}>
-        {Object.keys(boxes).map(key => {
-          const { left, top, title } = boxes[key];
+        {Object.keys(textbox).map(key => {
+          const { left, top} = textbox[key];
           return (
-            <Box key={key}
-                 id={key}
+            <TextBox id={key}
                  left={left}
                  top={top}
-                 hideSourceOnDrag={hideSourceOnDrag}>
-              {title}
-            </Box>
+                />
           );
         })}
       </div>
@@ -73,7 +80,7 @@ class Container extends Component {
 
 export default flow(
 
-  DropTarget(ItemTypes.BOX, boxTarget, connect => ({
+  DropTarget(ItemTypes.TEXTBOX, boxTarget, connect => ({
     connectDropTarget: connect.dropTarget()
   }))
 )(Container);

@@ -9,7 +9,7 @@ import VideosContainer from '../containers/VideosContainer';
 var DragDropContext = require('react-dnd').DragDropContext;
 var HTML5Backend = require('react-dnd-html5-backend');
 import flow from 'lodash/function/flow';
-import Container from '../testTry/Container';
+import Container from '../testtry2/Container';
 class App extends Component {
 
   componentDidMount () {
@@ -31,6 +31,10 @@ class App extends Component {
           }
 
           return (
+              // <div>
+              //   <NavContainer />
+              //   <VideosContainer />
+              // </div>
               <div>
                   <Container />
               </div>

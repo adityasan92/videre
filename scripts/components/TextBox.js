@@ -91,6 +91,22 @@ const boxSource = {
 
 
 class TextBox extends Component {
+
+  size(event){
+    console.log(event);
+  }
+
+  resize(event){
+    console.log(event);
+    console.log(this.refs.svg.offsetWidth);
+  }
+
+  componentDidMount() {
+    console.log(this.refs.svg.offsetWidth);
+    var width = this.refs.svg.offsetWidth;
+
+  }
+
   render() {
     const { hideSourceOnDrag, left, top, connectDragSource, isDragging, children } = this.props;
     if (isDragging && hideSourceOnDrag) {
@@ -99,7 +115,7 @@ class TextBox extends Component {
 
     return connectDragSource(
       <div style={{ ...style, left, top }}>
-        <textarea ></textarea>
+        <textarea ref="svg" onChange={this.size} onMouseUp={this.resize} ></textarea>
       </div>
     );
   }

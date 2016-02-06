@@ -6,12 +6,7 @@ import { DropTarget, DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import flow from 'lodash/function/flow';
 import TextBox from '../components/TextBox'
-// const styles = {
-//   width: 300,
-//   height: 300,
-//   border: '1px solid black',
-//   position: 'relative'
-// };
+
 
 const styles = {
   width: 600,

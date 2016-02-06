@@ -98,13 +98,14 @@ class TextBox extends Component {
 
   resize(event){
     console.log(event);
-    console.log(this.refs.svg.offsetWidth);
+    //console.log(this.refs.svg.offsetWidth);
   }
 
   componentDidMount() {
     console.log(this.refs.svg.offsetWidth);
     var width = this.refs.svg.offsetWidth;
-
+    var height = this.refs.svg.offsetHeight;
+    console.log(height);
   }
 
   render() {

@@ -3,7 +3,7 @@ import update from 'react/lib/update';
 import ItemTypes from './ItemTypes';
 import Box from './Box';
 import { DropTarget, DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend';
 import flow from 'lodash/function/flow';
 import TextBox from '../components/TextBox'
 
@@ -18,11 +18,11 @@ const boxTarget = {
   drop(props, monitor, component) {
     const item = monitor.getItem();
     console.log(item);
-    const delta = monitor.getDifferenceFromInitialOffset();
-    const left = Math.round(item.left + delta.x);
-    const top = Math.round(item.top + delta.y);
-
-    component.moveBox(item.id, left, top);
+    // const delta = monitor.getDifferenceFromInitialOffset();
+    // const left = Math.round(item.left + delta.x);
+    // const top = Math.round(item.top + delta.y);
+    //
+    // component.moveBox(item.id, left, top);
   }
 };
 
@@ -75,7 +75,7 @@ class Container extends Component {
 
 export default flow(
 
-  DropTarget(ItemTypes.TEXTBOX, boxTarget, connect => ({
+  DropTarget([ItemTypes.TEXTBOX ,  NativeTypes.FILE,NativeTypes.URL], boxTarget, connect => ({
     connectDropTarget: connect.dropTarget()
   }))
 )(Container);

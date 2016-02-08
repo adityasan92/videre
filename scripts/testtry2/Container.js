@@ -75,7 +75,8 @@ class Container extends Component {
 
 export default flow(
 
-  DropTarget([ItemTypes.TEXTBOX ,  NativeTypes.FILE,NativeTypes.URL], boxTarget, connect => ({
-    connectDropTarget: connect.dropTarget()
+  DropTarget([ItemTypes.TEXTBOX , NativeTypes.FILE, NativeTypes.URL], boxTarget, (connect , monitor) => ({
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver()
   }))
 )(Container);

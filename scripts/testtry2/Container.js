@@ -28,7 +28,7 @@ const boxTarget = {
 
          }.bind(this),
          error: function(xhr, status, err) {
-           console.error("No response"));
+           console.error("No response");
          }.bind(this)
        });
     }else{

@@ -17,8 +17,15 @@ def getArticle(url):
 
     final_article = soup.text
     print final_article.encode("cp437", "ignore")
+    print readable_title
     links = soup.findAll('img', src=True)
     print links
 
-url="http://www.bloomberg.com/news/articles/2016-02-08/here-s-what-executives-say-about-possibility-of-u-s-recession"
-getArticle(url);
+def savePic(url):
+    uri = "C:/Users/Aditya/Desktop/projects/videre/server/images/download.jpg"
+    if url != "":
+        urllib.urlretrieve(url,uri)
+
+url="https://en.wikipedia.org/wiki/Great_Wall_of_China"
+#getArticle(url);
+savePic("http://celebmafia.com/wp-content/uploads/2014/08/jessica-alba-hot-wallpapers-22-july-2014_1.jpg")

@@ -18,11 +18,27 @@ const boxTarget = {
   drop(props, monitor, component) {
     const item = monitor.getItem();
     console.log(item);
-    // const delta = monitor.getDifferenceFromInitialOffset();
-    // const left = Math.round(item.left + delta.x);
-    // const top = Math.round(item.top + delta.y);
-    //
-    // component.moveBox(item.id, left, top);
+    if(item.urls){
+      $.ajax({
+         url: '/api/scrapeUrl',
+         dataType: 'json',
+         type: 'POST',
+         data: item.urls,
+         success: function(data) {
+
+         }.bind(this),
+         error: function(xhr, status, err) {
+           console.error("No response"));
+         }.bind(this)
+       });
+    }else{
+      const delta = monitor.getDifferenceFromInitialOffset();
+      const left = Math.round(item.left + delta.x);
+      const top = Math.round(item.top + delta.y);
+
+      component.moveBox(item.id, left, top);
+    }
+
   }
 };
 

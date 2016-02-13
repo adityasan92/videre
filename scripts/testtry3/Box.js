@@ -24,19 +24,8 @@ const boxSource = {
   }
 };
 
-@DragSource(props => props.type, boxSource, (connect, monitor) => ({
-  connectDragSource: connect.dragSource(),
-  isDragging: monitor.isDragging()
-}))
-export default class Box extends Component {
-  static propTypes = {
-    connectDragSource: PropTypes.func.isRequired,
-    isDragging: PropTypes.bool.isRequired,
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    isDropped: PropTypes.bool.isRequired
-  };
 
+class Box extends Component {
   render() {
     const { name, isDropped, isDragging, connectDragSource } = this.props;
     const opacity = isDragging ? 0.4 : 1;
@@ -51,3 +40,8 @@ export default class Box extends Component {
     );
   }
 }
+
+export default DragSource(props => props.type, boxSource, (connect, monitor) => ({
+  connectDragSource: connect.dragSource(),
+  isDragging: monitor.isDragging()
+}))(Box);

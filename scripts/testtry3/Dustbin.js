@@ -20,20 +20,8 @@ const dustbinTarget = {
   }
 };
 
-@DropTarget(props => props.accepts, dustbinTarget, (connect, monitor) => ({
-  connectDropTarget: connect.dropTarget(),
-  isOver: monitor.isOver(),
-  canDrop: monitor.canDrop()
-}))
-export default class Dustbin extends Component {
-  static propTypes = {
-    connectDropTarget: PropTypes.func.isRequired,
-    isOver: PropTypes.bool.isRequired,
-    canDrop: PropTypes.bool.isRequired,
-    accepts: PropTypes.arrayOf(PropTypes.string).isRequired,
-    lastDroppedItem: PropTypes.object,
-    onDrop: PropTypes.func.isRequired
-  };
+
+class Dustbin extends Component {
 
   render() {
     const { accepts, isOver, canDrop, connectDropTarget, lastDroppedItem } = this.props;
@@ -60,3 +48,9 @@ export default class Dustbin extends Component {
     );
   }
 }
+
+export default DropTarget(props => props.accepts, dustbinTarget, (connect, monitor) => ({
+  connectDropTarget: connect.dropTarget(),
+  isOver: monitor.isOver(),
+  canDrop: monitor.canDrop()
+}))(Dustbin);

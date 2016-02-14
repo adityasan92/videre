@@ -31,6 +31,19 @@ const boxTarget = {
            console.error("No response");
          }.bind(this)
        });
+    }else if(item.files){
+      //console.log();
+      for (var i=0; i<item.files.length; i++) {
+         var file = item.files[i];
+         var reader = new FileReader();
+          console.log(reader);
+         //attach event handlers here...
+
+         reader.readAsDataURL(file);
+         reader.onload = function(){
+           console.log(reader.result);
+         }
+       }
     }else{
       const delta = monitor.getDifferenceFromInitialOffset();
       const left = Math.round(item.left + delta.x);

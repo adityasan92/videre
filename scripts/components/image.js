@@ -8,11 +8,13 @@ const style = {
   position: 'absolute',
   border: '1px dashed gray',
   backgroundColor: 'white',
-  padding: '0.5rem 1rem',
-  width: 50,
-  height: 50,
-
+  padding: '0.5rem 1rem'
 };
+
+const imageStyle = {
+  width: 100,
+  height: 100,
+}
 
 const imgSource = {
   beginDrag(props) {
@@ -30,8 +32,8 @@ class ImageCom extends Component {
     var img = new Image();
     img.src = data;
     return connectDragSource(
-      <div style={{ ...style, left, top }}>
-        <img src={data} ></img>
+      <div style={{ ...style, top, left}}>
+        <img style={{...imageStyle }} src={data} ></img>
       </div>
     );
   }

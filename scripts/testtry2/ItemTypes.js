@@ -1,4 +1,5 @@
 export default {
   TEXTBOX: 'TextBox',
-  BOX: 'box'
+  BOX: 'box',
+  IMAGE:'image'
 };

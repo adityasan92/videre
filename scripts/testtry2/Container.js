@@ -16,7 +16,9 @@ const styles = {
 
 const boxTarget = {
   drop(props, monitor, component) {
+    console.log( monitor.getItemType());
     const item = monitor.getItem();
+    var type = monitor.getItemType();
     console.log(item);
     if(item.urls){
       $.ajax({
@@ -42,15 +44,22 @@ const boxTarget = {
          reader.readAsDataURL(file);
          reader.onload = function(){
            //console.log(reader.result);
-           component.addImage("a", 0, 0, reader.result);
+           component.addImage("aBC", 45, 45, reader.result);
          }
        }
     }else{
       const delta = monitor.getDifferenceFromInitialOffset();
       const left = Math.round(item.left + delta.x);
       const top = Math.round(item.top + delta.y);
+      if(type == "TextBox"){
+          component.moveBox(item.id, left, top);
+      }else{
+        const delta = monitor.getDifferenceFromInitialOffset();
+        const left = Math.round(item.left + delta.x);
+        const top = Math.round(item.top + delta.y);
+        component.moveImage(item.id, left, top);
+      }
 
-      component.moveBox(item.id, left, top);
     }
 
   }
@@ -70,11 +79,27 @@ class Container extends Component {
   }
 
   moveBox(id, left, top) {
-    console.log(id);
-    console.log(left);
-    console.log(top);
+    // console.log(id);
+    // console.log(left);
+    // console.log(top);
     this.setState(update(this.state, {
       textbox: {
+        [id]: {
+          $merge: {
+            left: left,
+            top: top
+          }
+        }
+      }
+    }));
+  }
+
+  moveImage(id, left, top,data) {
+    // console.log(id);
+    // console.log(left);
+    // console.log(top);
+    this.setState(update(this.state, {
+      image: {
         [id]: {
           $merge: {
             left: left,
@@ -114,7 +139,7 @@ class Container extends Component {
   render() {
     const { hideSourceOnDrag, connectDropTarget } = this.props;
     const { textbox} = this.state;
-    console.log(this.renderContent());
+    //console.log(this.renderContent());
     return connectDropTarget(
       <div style={styles}>
         {Object.keys(textbox).map(key => {
@@ -135,7 +160,7 @@ class Container extends Component {
 
 export default flow(
 
-  DropTarget([ItemTypes.TEXTBOX , NativeTypes.FILE, NativeTypes.URL], boxTarget, (connect , monitor) => ({
+  DropTarget([ItemTypes.TEXTBOX, ItemTypes.IMAGE , NativeTypes.FILE, NativeTypes.URL], boxTarget, (connect , monitor) => ({
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver()
   }))

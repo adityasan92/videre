@@ -6,7 +6,7 @@ import { DropTarget, DragDropContext } from 'react-dnd';
 import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend';
 import flow from 'lodash/function/flow';
 import TextBox from '../components/TextBox'
-import Image from '../components/image'
+import ImageCom from '../components/image'
 
 const styles = {
   width: 600,
@@ -41,8 +41,8 @@ const boxTarget = {
 
          reader.readAsDataURL(file);
          reader.onload = function(){
-           console.log(reader.result);
-           component.addImage("a", 35, 34, reader.result);
+           //console.log(reader.result);
+           component.addImage("a", 0, 0, reader.result);
          }
        }
     }else{
@@ -67,10 +67,6 @@ class Container extends Component {
       }
     };
     this.state.image = null;
-  }
-
-  getInitialState(){
-    this.state.image =null;
   }
 
   moveBox(id, left, top) {
@@ -102,24 +98,23 @@ class Container extends Component {
 
   renderContent(){
     if(this.state.image){
-      {Object.keys(this.state.image).map(key => {
+      return (Object.keys(this.state.image).map(key => {
         const { left, top,data} = this.state.image[key];
-        console.log(data);
-        return (
-          <Image id={key}
+        //console.log(top);
+          return(<ImageCom id={key}
                left={left}
                top={top}
                data={data}
               />
-        );
-      })}
+            )
+      }))
     }
   }
 
   render() {
     const { hideSourceOnDrag, connectDropTarget } = this.props;
     const { textbox} = this.state;
-
+    console.log(this.renderContent());
     return connectDropTarget(
       <div style={styles}>
         {Object.keys(textbox).map(key => {
@@ -130,8 +125,9 @@ class Container extends Component {
                  top={top}
                 />
           );
-        })}
+        })},
         {this.renderContent()}
+
       </div>
     );
   }

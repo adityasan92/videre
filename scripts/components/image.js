@@ -8,7 +8,10 @@ const style = {
   position: 'absolute',
   border: '1px dashed gray',
   backgroundColor: 'white',
-  padding: '0.5rem 1rem'
+  padding: '0.5rem 1rem',
+  width: 50,
+  height: 50,
+
 };
 
 const imgSource = {
@@ -19,18 +22,16 @@ const imgSource = {
 };
 
 
-class Image extends Component {
-
-  componentDidMount() {
-
-  }
+class ImageCom extends Component {
 
   render() {
     const {left, top, connectDragSource, data} = this.props
     console.log(this.props);
+    var img = new Image();
+    img.src = data;
     return connectDragSource(
       <div style={{ ...style, left, top }}>
-        <img src={{data}}></img>
+        <img src={data} ></img>
       </div>
     );
   }
@@ -39,4 +40,4 @@ class Image extends Component {
 export default DragSource(ItemTypes.IMAGE, imgSource, (connect, monitor) => ({
   connectDragSource: connect.dragSource(),
   isDragging: monitor.isDragging()
-}))(Image);
+}))(ImageCom);

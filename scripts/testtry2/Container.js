@@ -20,6 +20,7 @@ const boxTarget = {
     const item = monitor.getItem();
     var type = monitor.getItemType();
     console.log(item);
+    console.log(monitor.getDropResult());
     if(item.urls){
       $.ajax({
          url: '/api/scrapeUrl',
@@ -37,6 +38,9 @@ const boxTarget = {
       //console.log();
       for (var i=0; i<item.files.length; i++) {
          var file = item.files[i];
+         console.log(file);
+         var name = file.name;
+         console.log(name);
          var reader = new FileReader();
           console.log(reader);
          //attach event handlers here...
@@ -44,7 +48,8 @@ const boxTarget = {
          reader.readAsDataURL(file);
          reader.onload = function(){
            //console.log(reader.result);
-           component.addImage("aBC", 45, 45, reader.result);
+           console.log(reader.result);
+           component.addImage(name, 45, 45, reader.result);
          }
        }
     }else{

@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import Modal from 'react-modal';
 
-class Modal extends Component{
+class ModalC extends Component{
 
     render(){
+      console.log("Hello World");
       return(
-          <Modal></Modal>
+          <Modal isOpen={true}><h2>Hello</h2></Modal>
       );
     }
 
 }
 
-export default Modal;
+export default ModalC;

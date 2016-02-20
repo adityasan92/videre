@@ -4,8 +4,9 @@ import ItemTypes from '../constants/ItemTypes';
 import { DropTarget, DragDropContext } from 'react-dnd';
 import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend';
 import flow from 'lodash/function/flow';
-import TextBox from '../components/TextBox'
-import ImageCom from '../components/image'
+import TextBox from '../components/TextBox';
+import ImageCom from '../components/image';
+import ModalC from '../components/Modal';
 
 const styles = {
   width: 600,
@@ -73,6 +74,7 @@ class Container extends Component {
 
   constructor(props) {
     super(props);
+    this.openModal = this.openModal.bind(this);
     this.state = {
       textbox: {
         'a': { top: 20, left: 80},
@@ -80,6 +82,7 @@ class Container extends Component {
       }
     };
     this.state.image = null;
+    this.state.modal = false;
   }
 
   moveBox(id, left, top) {
@@ -125,7 +128,12 @@ class Container extends Component {
       }});
   }
 
-  renderContent(){
+  openModal(){
+    console.log("Open a modal");
+    this.setState({modal:true});
+  }
+
+  renderImages(){
     if(this.state.image){
       return (Object.keys(this.state.image).map(key => {
         const { left, top,data} = this.state.image[key];
@@ -134,16 +142,29 @@ class Container extends Component {
                left={left}
                top={top}
                data={data}
+               openModal={this.openModal}
               />
             )
       }))
     }
   }
 
+  renderContent(){
+      const {modal} = this.state
+      console.log(modal);
+      if(!modal){
+        return;
+      }
+      console.log("returning ModalC");
+      return(
+        <ModalC></ModalC>
+      )
+  }
+
   render() {
     const { hideSourceOnDrag, connectDropTarget } = this.props;
     const { textbox} = this.state;
-    //console.log(this.renderContent());
+    //console.log("this.renderContent()");
     return connectDropTarget(
       <div style={styles}>
         {Object.keys(textbox).map(key => {
@@ -155,6 +176,7 @@ class Container extends Component {
                 />
           );
         })},
+        {this.renderImages()}
         {this.renderContent()}
 
       </div>

@@ -26,6 +26,17 @@ const imgSource = {
 
 class ImageCom extends Component {
 
+  constructor(props) {
+    super(props);
+    this.openModal = this.openModal.bind(this);
+  }
+
+  openModal(){
+    console.log("Double clicking");
+    console.log(this.props);
+    this.props.openModal();
+  }
+
   render() {
     const {left, top, connectDragSource, data} = this.props
     console.log(this.props);
@@ -33,7 +44,7 @@ class ImageCom extends Component {
     img.src = data;
     return connectDragSource(
       <div style={{ ...style, top, left}}>
-        <img style={{...imageStyle }} src={data} ></img>
+        <img style={{...imageStyle }} src={data} onDoubleClick={this.openModal}></img>
       </div>
     );
   }

@@ -39,18 +39,23 @@ const boxTarget = {
       for (var i=0; i<item.files.length; i++) {
          var file = item.files[i];
          console.log(file);
-         var name = file.name;
-         console.log(name);
-         var reader = new FileReader();
-          console.log(reader);
-         //attach event handlers here...
+         if(file.type.indexOf("image") > -1){
+           var name = file.name;
+           console.log(name);
+           var reader = new FileReader();
+            console.log(reader);
+           //attach event handlers here...
 
-         reader.readAsDataURL(file);
-         reader.onload = function(){
-           //console.log(reader.result);
-           console.log(reader.result);
-           component.addImage(name, 45, 45, reader.result);
+           reader.readAsDataURL(file);
+           reader.onload = function(){
+             //console.log(reader.result);
+             //console.log(reader.result);
+             component.addImage(name, 45, 45, reader.result);
+           }
+         }else{
+
          }
+
        }
     }else{
       const delta = monitor.getDifferenceFromInitialOffset();
@@ -85,13 +90,12 @@ class Container extends Component {
       }
     };
     this.state.image = {};
-    this.state.modal = false;
+    this.state.modal ={};
+    this.state.modal.flag = false;
   }
 
   moveBox(id, left, top) {
-    // console.log(id);
-    // console.log(left);
-    // console.log(top);
+
     this.setState(update(this.state, {
       textbox: {
         [id]: {
@@ -105,9 +109,6 @@ class Container extends Component {
   }
 
   moveImage(id, left, top,data) {
-    // console.log(id);
-    // console.log(left);
-    // console.log(top);
     this.setState(update(this.state, {
       image: {
         [id]: {
@@ -134,11 +135,17 @@ class Container extends Component {
 
   openModal(type, data){
     console.log("Open a modal");
-    this.setState({modal:true});
+    var modal = this.state.modal;
+    modal.flag = true;
+    modal.type = type;
+    modal.data = data;
+    this.setState({modal:modal});
   }
 
   closeModal(){
-    this.setState({modal:false});
+    var modal = this.state.modal;
+    modal.flag = false;
+    this.setState({modal:modal});
   }
 
   renderImages(){
@@ -160,7 +167,7 @@ class Container extends Component {
   renderContent(){
       const {modal} = this.state
       console.log(modal);
-      if(!modal){
+      if(!modal.flag){
         return;
       }
       console.log("returning ModalC");

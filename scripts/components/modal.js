@@ -52,6 +52,8 @@ class ModalC extends Component{
       console.log(type);
       if(type == "image"){
         return this.setImageStyle();
+      }else{
+        return this.setImageStyle();
       }
     }
 
@@ -62,6 +64,20 @@ class ModalC extends Component{
         return(
           <img style={{...imageStyle }} src={data} onDoubleClick={this.openModal}></img>
         )
+      }else if(type== "file"){
+        var reader = new FileReader();
+         console.log(reader);
+        reader.readAsDataURL(data);
+        reader.onload = function(){
+          console.log("read");
+          //console.log(reader.result);
+          return(
+              <object width="400" height="400" data={reader.result}></object>
+          )
+        }
+        // return(
+        //    <object width="400" height="400" data={data}></object>
+        //  )
       }
     }
 

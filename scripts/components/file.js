@@ -31,7 +31,7 @@ class File extends Component {
   openModal(){
     console.log("Double clicking");
     console.log(this.props);
-    this.props.openModal("file", this.file);
+    this.props.openModal("file", this.props.data);
   }
 
   setClickPos(){

@@ -81,7 +81,7 @@ class Container extends Component {
         'b': { top: 180, left: 20}
       }
     };
-    this.state.image = null;
+    this.state.image = {};
     this.state.modal = false;
   }
 
@@ -119,13 +119,14 @@ class Container extends Component {
 
   addImage(id, top,left,data){
       console.log("Adding a image");
-      this.setState({image:{
-        [id]:{
+      var images = this.state.image;
+      console.log(this.state);
+      images[id] = {
             left:left,
             top:top,
             data:data
-        }
-      }});
+        };
+      this.setState({image:images});
   }
 
   openModal(){

@@ -172,7 +172,7 @@ class Container extends Component {
       }
       console.log("returning ModalC");
       return(
-        <ModalC closeModal={this.closeModal}></ModalC>
+        <ModalC type={modal.type} data={modal.data} closeModal={this.closeModal}></ModalC>
       )
   }
 

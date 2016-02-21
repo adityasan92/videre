@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
 import Modal from 'react-modal';
 
+const imageStyle = {
+  height: 300,
+  width: 300,
+
+}
+
 class ModalC extends Component{
 
   constructor(props) {
@@ -9,6 +15,7 @@ class ModalC extends Component{
     this.state.modalIsOpen = true;
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.setStyle = this.setStyle.bind(this);
   }
 
     openModal() {
@@ -20,13 +27,51 @@ class ModalC extends Component{
       this.props.closeModal();
     }
 
+    setImageStyle(){
+        return ({
+          overlay : {
+              position          : 'fixed',
+              top               : 0,
+              left              : 0,
+              right             : 0,
+              bottom            : 0,
+              backgroundColor   : 'rgba(0, 0, 0, 0.6)'
+            },
+          content : {
+              top                   : '50%',
+              left                  : '50%',
+              right                 : 'auto',
+              bottom                : 'auto',
+              marginRight           : '-50%',
+              transform             : 'translate(-50%, -50%)'
+            }
+          });
+    }
+
+    setStyle(type){
+      console.log(type);
+      if(type == "image"){
+        return this.setImageStyle();
+      }
+    }
+
+    renderContent(){
+      const { type, data } = this.props;
+      console.log(type,data);
+      if(type =="image"){
+        return(
+          <img style={{...imageStyle }} src={data} onDoubleClick={this.openModal} onClick={this.setClickPos}></img>
+        )
+      }
+    }
+
     render(){
       console.log("Hello World");
-      //const { } = this.props;
+      const { type, data } = this.props;
+      console.log(type);
       return(
-          <Modal isOpen={this.state.modalIsOpen }  onRequestClose={this.closeModal}>
-            <h2>Hello</h2>
-            <button onClick={this.closeModal}>close</button>
+          <Modal style={this.setStyle(type)} isOpen={this.state.modalIsOpen }  onRequestClose={this.closeModal}>
+                {this.renderContent(this.props)}
           </Modal>
       );
     }

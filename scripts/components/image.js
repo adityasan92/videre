@@ -34,7 +34,7 @@ class ImageCom extends Component {
   openModal(){
     console.log("Double clicking");
     console.log(this.props);
-    this.props.openModal("imageType", this.imageData);
+    this.props.openModal("image", this.imageData);
   }
 
   setClickPos(){

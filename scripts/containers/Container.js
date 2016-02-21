@@ -7,7 +7,7 @@ import flow from 'lodash/function/flow';
 import TextBox from '../components/TextBox';
 import ImageCom from '../components/image';
 import ModalC from '../components/Modal';
-
+import File from '../components/File';
 const styles = {
   width: 600,
   height: 400,
@@ -53,7 +53,8 @@ const boxTarget = {
              component.addImage(name, 45, 45, reader.result);
            }
          }else{
-
+           var name = file.name;
+           component.addFile(name, 0,0, file)
          }
 
        }
@@ -63,13 +64,10 @@ const boxTarget = {
       const top = Math.round(item.top + delta.y);
       if(type == "TextBox"){
           component.moveBox(item.id, left, top);
-      }else{
-        const delta = monitor.getDifferenceFromInitialOffset();
-        const delta2 = monitor.getInitialClientOffset();
-        console.log(delta, delta2)
-        const left = Math.round(item.left + delta.x);
-        const top = Math.round(item.top + delta.y);
+      }else if(type == "image"){
         component.moveImage(item.id, left, top);
+      }else{
+        component.moveFile(item.id, left, top);
       }
 
     }
@@ -90,6 +88,7 @@ class Container extends Component {
       }
     };
     this.state.image = {};
+    this.state.files ={};
     this.state.modal ={};
     this.state.modal.flag = false;
   }
@@ -121,6 +120,19 @@ class Container extends Component {
     }));
   }
 
+  moveFile(id, left, top,data) {
+    this.setState(update(this.state, {
+      files: {
+        [id]: {
+          $merge: {
+            left: left,
+            top: top
+          }
+        }
+      }
+    }));
+  }
+
   addImage(id, top,left,data){
       console.log("Adding a image");
       var images = this.state.image;
@@ -131,6 +143,18 @@ class Container extends Component {
             data:data
         };
       this.setState({image:images});
+  }
+
+  addFile(id, top,left,data){
+      console.log("Adding a image");
+      var files = this.state.files;
+      console.log(this.state);
+      files[id] = {
+            left:left,
+            top:top,
+            data:data
+        };
+      this.setState({files:files});
   }
 
   openModal(type, data){
@@ -164,6 +188,22 @@ class Container extends Component {
     }
   }
 
+  renderFile(){
+    if(this.state.files){
+      return (Object.keys(this.state.files).map(key => {
+        const { left, top,data} = this.state.files[key];
+        //console.log(top);
+          return(<File id={key}
+               left={left}
+               top={top}
+               data={data}
+               openModal={this.openModal}
+              />
+            )
+      }))
+    }
+  }
+
   renderContent(){
       const {modal} = this.state
       console.log(modal);
@@ -172,7 +212,7 @@ class Container extends Component {
       }
       console.log("returning ModalC");
       return(
-        <ModalC type={modal.type} data={modal.data} closeModal={this.closeModal}></ModalC>
+        <ModalC type={modal.type} data={modal.data}  closeModal={this.closeModal}></ModalC>
       )
   }
 
@@ -193,6 +233,7 @@ class Container extends Component {
         })},
         {this.renderImages()}
         {this.renderContent()}
+        {this.renderFile()}
 
       </div>
     );
@@ -201,7 +242,7 @@ class Container extends Component {
 
 export default flow(
 
-  DropTarget([ItemTypes.TEXTBOX, ItemTypes.IMAGE , NativeTypes.FILE, NativeTypes.URL], boxTarget, (connect , monitor) => ({
+  DropTarget([ItemTypes.TEXTBOX, ItemTypes.IMAGE,ItemTypes.FILE , NativeTypes.FILE, NativeTypes.URL], boxTarget, (connect , monitor) => ({
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver()
   }))

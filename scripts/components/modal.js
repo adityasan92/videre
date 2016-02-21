@@ -57,10 +57,10 @@ class ModalC extends Component{
 
     renderContent(){
       const { type, data } = this.props;
-      console.log(type,data);
+      console.log(this.props);
       if(type =="image"){
         return(
-          <img style={{...imageStyle }} src={data} onDoubleClick={this.openModal} onClick={this.setClickPos}></img>
+          <img style={{...imageStyle }} src={data} onDoubleClick={this.openModal}></img>
         )
       }
     }

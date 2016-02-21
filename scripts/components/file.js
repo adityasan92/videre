@@ -5,15 +5,12 @@ import { DragSource } from 'react-dnd';
 import flow from 'lodash/function/flow';
 
 const style = {
-  position: 'absolute',
-  border: '1px dashed gray',
-  backgroundColor: 'white',
-  padding: '0.5rem 1rem'
+  position: 'absolute'
 };
 
 const imageStyle = {
-  width: 100,
-  height: 100,
+  width: 50,
+  height: 50,
 }
 
 const fileSource = {
@@ -34,7 +31,7 @@ class File extends Component {
   openModal(){
     console.log("Double clicking");
     console.log(this.props);
-    this.props.openModal("imageType", this.imageData);
+    this.props.openModal("file", this.file);
   }
 
   setClickPos(){
@@ -42,20 +39,19 @@ class File extends Component {
   }
 
   render() {
-    const {left, top, connectDragSource, data} = this.props;
+    const {left, top, connectDragSource, data, title, file} = this.props;
     console.log(this.props);
-    var img = new Image();
-    img.src = data;
-    this.imageData = data;
+    this.file = file;
     return connectDragSource(
-      <div style={{ ...style, top, left}}>
-        <img style={{...imageStyle }} src={data} onDoubleClick={this.openModal} onClick={this.setClickPos}></img>
+      <div  style={{ ...style, top, left}} onDoubleClick={this.openModal}>
+          <i className="fa fa-file fa-4x" ></i>
+          <p> {title}</p>
       </div>
     );
   }
 }
 
-export default DragSource(ItemTypes.file, fileSource, (connect, monitor) => ({
+export default DragSource(ItemTypes.FILE, fileSource, (connect, monitor) => ({
   connectDragSource: connect.dragSource(),
   isDragging: monitor.isDragging()
 }))(File);

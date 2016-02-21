@@ -9,6 +9,7 @@ import configureStore from './store/configureStore';
 //alert('Hello World');
 require('../styles/main.scss');
 require('bootstrap');
+
 const store = configureStore();
 
 ReactDOM.render(

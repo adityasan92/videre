@@ -34,7 +34,11 @@ class ImageCom extends Component {
   openModal(){
     console.log("Double clicking");
     console.log(this.props);
-    this.props.openModal();
+    this.props.openModal("imageType", this.imageData);
+  }
+
+  setClickPos(){
+      console.log("ada");
   }
 
   render() {
@@ -42,9 +46,10 @@ class ImageCom extends Component {
     console.log(this.props);
     var img = new Image();
     img.src = data;
+    this.imageData = data;
     return connectDragSource(
       <div style={{ ...style, top, left}}>
-        <img style={{...imageStyle }} src={data} onDoubleClick={this.openModal}></img>
+        <img style={{...imageStyle }} src={data} onDoubleClick={this.openModal} onClick={this.setClickPos}></img>
       </div>
     );
   }

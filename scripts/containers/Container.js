@@ -60,6 +60,8 @@ const boxTarget = {
           component.moveBox(item.id, left, top);
       }else{
         const delta = monitor.getDifferenceFromInitialOffset();
+        const delta2 = monitor.getInitialClientOffset();
+        console.log(delta, delta2)
         const left = Math.round(item.left + delta.x);
         const top = Math.round(item.top + delta.y);
         component.moveImage(item.id, left, top);
@@ -75,6 +77,7 @@ class Container extends Component {
   constructor(props) {
     super(props);
     this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
     this.state = {
       textbox: {
         'a': { top: 20, left: 80},
@@ -129,9 +132,13 @@ class Container extends Component {
       this.setState({image:images});
   }
 
-  openModal(){
+  openModal(type, data){
     console.log("Open a modal");
     this.setState({modal:true});
+  }
+
+  closeModal(){
+    this.setState({modal:false});
   }
 
   renderImages(){
@@ -158,7 +165,7 @@ class Container extends Component {
       }
       console.log("returning ModalC");
       return(
-        <ModalC></ModalC>
+        <ModalC closeModal={this.closeModal}></ModalC>
       )
   }
 

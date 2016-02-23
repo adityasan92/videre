@@ -24,11 +24,13 @@ const boxTarget = {
     if(item.urls){
       $.ajax({
          url: '/api/scrapeUrl',
-         dataType: 'json',
+         dataType : "json",
+         contentType: "application/json; charset=utf-8",
          type: 'POST',
-         data: item.urls,
+         data: item.urls[1],
          success: function(data) {
-
+           console.log("success");
+            console.log(data);
          }.bind(this),
          error: function(xhr, status, err) {
            console.error("No response");
@@ -230,7 +232,7 @@ class Container extends Component {
                  top={top}
                 />
           );
-        })},
+        })}
         {this.renderImages()}
         {this.renderContent()}
         {this.renderFile()}
